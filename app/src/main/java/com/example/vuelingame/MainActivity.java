@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+//ignasi
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button buttonStart;
