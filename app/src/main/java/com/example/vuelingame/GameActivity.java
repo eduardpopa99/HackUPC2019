@@ -249,11 +249,14 @@ public class GameActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        startLayout.setVisibility(View.VISIBLE);
+        /*startLayout.setVisibility(View.VISIBLE);
         box.setVisibility(View.INVISIBLE);
         black.setVisibility(View.INVISIBLE);
         orange.setVisibility(View.INVISIBLE);
-        pink.setVisibility(View.INVISIBLE);
+        pink.setVisibility(View.INVISIBLE);*/
+        finish();
+        startActivity(new Intent(getApplicationContext(), ResultsActivity.class));
+
 
     }
 
@@ -360,13 +363,13 @@ public class GameActivity extends AppCompatActivity {
         }, 0, 20);
     }
 
-    public void quitGame(View view) {
+/*    public void quitGame(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             finishAndRemoveTask();
         } else {
             finish();
         }
-    }
+    }*/
 
     public void returnHome(View view) {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
