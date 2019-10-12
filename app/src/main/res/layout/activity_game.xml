@@ -19,6 +19,7 @@
         android:fontFamily="@font/rubrik"
         android:textSize="24sp"
         android:textStyle="bold"
+
     />
 
 
@@ -76,8 +77,6 @@
             android:visibility="invisible"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"/>
-
-    </LinearLayout>
 
     <FrameLayout
         android:layout_marginHorizontal="25dp"
