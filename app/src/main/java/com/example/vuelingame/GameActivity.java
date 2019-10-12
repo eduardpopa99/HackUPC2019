@@ -1,5 +1,6 @@
 package com.example.vuelingame;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
@@ -42,8 +43,9 @@ public class GameActivity extends AppCompatActivity {
     private float pinkX, pinkY;
 
     // Score
-    private TextView scoreLabel, highScoreLabel, lifeLabel;
-    private int highScore, timeCount, vida, score;
+    private TextView scoreLabel, readyLabel, lifeLabel;
+    private int timeCount, vida, score;
+
 
     // Class
     private Timer timer;
@@ -69,17 +71,13 @@ public class GameActivity extends AppCompatActivity {
         pink = findViewById(R.id.pink);
         scoreLabel = findViewById(R.id.scoreLabel);
         lifeLabel = findViewById(R.id.lifeLabel);
-        highScoreLabel = findViewById(R.id.highScoreLabel);
+        readyLabel = findViewById(R.id.readyLabel);
 
         imageBoxLeft = getResources().getDrawable(R.drawable.box_left);
         imageBoxRight = getResources().getDrawable(R.drawable.box_right);
 
-        // High Score
-        highScore = 0;
         score = 0;
         vida=3;
-        String scoreText = getString(R.string.highScore) + highScore;
-        highScoreLabel.setText(scoreText);
     }
 
     public void changePos() {
@@ -124,7 +122,9 @@ public class GameActivity extends AppCompatActivity {
 
             if (hitCheck(pinkCenterX, pinkCenterY)) {
                 pinkY = frameHeight + 30;
-                vida++;
+
+                if(vida < 5) vida++;
+
 
             }
 
@@ -219,15 +219,6 @@ public class GameActivity extends AppCompatActivity {
         orange.setVisibility(View.INVISIBLE);
         pink.setVisibility(View.INVISIBLE);
 
-        Log.d("TAG", "gameOver: "+score +" "+highScore);
-
-        // Update High Score
-        if (score > highScore) {
-            highScore = score;
-            String highScoreText = getString(R.string.highScore) + highScore;
-            highScoreLabel.setText(highScoreText);
-
-        }
     }
 
     //////////
@@ -338,4 +329,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    public void returnHome(View view) {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
 }
