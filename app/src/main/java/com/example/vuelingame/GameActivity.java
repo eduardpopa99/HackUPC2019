@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +43,8 @@ public class GameActivity extends AppCompatActivity {
     private float pinkX, pinkY;
 
     // Score
-    private TextView scoreLabel, highScoreLabel;
-    private int score, highScore, timeCount;
+    private TextView scoreLabel, highScoreLabel, lifeLabel;
+    private int score, highScore, timeCount, vida;
     private SharedPreferences settings;
 
     // Class
@@ -68,6 +69,7 @@ public class GameActivity extends AppCompatActivity {
         orange = findViewById(R.id.orange);
         pink = findViewById(R.id.pink);
         scoreLabel = findViewById(R.id.scoreLabel);
+        lifeLabel = findViewById(R.id.lifeLabel);
         highScoreLabel = findViewById(R.id.highScoreLabel);
 
         imageBoxLeft = getResources().getDrawable(R.drawable.box_left);
@@ -75,8 +77,9 @@ public class GameActivity extends AppCompatActivity {
 
         // High Score
         settings = getSharedPreferences("GAME_DATA", Context.MODE_PRIVATE);
-        highScore = settings.getInt("HIGH_SCORE", 0);
-        //highScoreLabel.setText("High Score : " + highScore);
+        highScore = 0;
+        vida=3;
+        highScoreLabel.setText("High Score : 0");
     }
 
     public void changePos() {
@@ -118,11 +121,8 @@ public class GameActivity extends AppCompatActivity {
             if (hitCheck(pinkCenterX, pinkCenterY)) {
                 pinkY = frameHeight + 30;
                 score += 30;
-                // Change FrameWidth
-                if (initialFrameWidth > frameWidth * 110 / 100) {
-                    frameWidth = frameWidth * 110 / 100;
-                    changeFrameWidth(frameWidth);
-                }
+                vida++;
+
             }
 
             if (pinkY > frameHeight) pink_flg = false;
@@ -138,11 +138,9 @@ public class GameActivity extends AppCompatActivity {
 
         if (hitCheck(blackCenterX, blackCenterY)) {
             blackY = frameHeight + 100;
-
+            --vida;
             // Change FrameWidth
-            frameWidth = frameWidth * 80 / 100;
-            changeFrameWidth(frameWidth);
-            if (frameWidth <= boxSize) {
+            if (vida==0) {
                 gameOver();
             }
 
@@ -180,6 +178,7 @@ public class GameActivity extends AppCompatActivity {
         box.setX(boxX);
 
         scoreLabel.setText("Score : " + score);
+        lifeLabel.setText("Lifes : " + vida);
 
     }
 
@@ -191,11 +190,7 @@ public class GameActivity extends AppCompatActivity {
         return false;
     }
 
-    public void changeFrameWidth(int frameWidth) {
-        ViewGroup.LayoutParams params = gameFrame.getLayoutParams();
-        params.width = frameWidth;
-        gameFrame.setLayoutParams(params);
-    }
+
 
     public void gameOver() {
         // Stop timer.
@@ -210,22 +205,19 @@ public class GameActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        changeFrameWidth(initialFrameWidth);
-
         startLayout.setVisibility(View.VISIBLE);
         box.setVisibility(View.INVISIBLE);
         black.setVisibility(View.INVISIBLE);
         orange.setVisibility(View.INVISIBLE);
         pink.setVisibility(View.INVISIBLE);
 
+        Log.d("TAG", "gameOver: "+score +" "+highScore);
+
         // Update High Score
         if (score > highScore) {
             highScore = score;
             highScoreLabel.setText("High Score : " + highScore);
 
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putInt("HIGH_SCORE", highScore);
-            editor.commit();
         }
     }
 
@@ -275,6 +267,7 @@ public class GameActivity extends AppCompatActivity {
 
         timeCount = 0;
         score = 0;
+        vida = 3;
         scoreLabel.setText("Score : 0");
 
 
