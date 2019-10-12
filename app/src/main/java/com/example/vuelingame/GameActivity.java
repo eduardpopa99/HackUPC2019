@@ -46,6 +46,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView scoreLabel, readyLabel, lifeLabel;
     private int timeCount, vida, score;
 
+
     // Class
     private Timer timer;
     private Handler handler = new Handler();
@@ -121,7 +122,9 @@ public class GameActivity extends AppCompatActivity {
 
             if (hitCheck(pinkCenterX, pinkCenterY)) {
                 pinkY = frameHeight + 30;
+
                 if(vida < 5) vida++;
+
 
             }
 
