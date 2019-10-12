@@ -254,6 +254,7 @@ public class GameActivity extends AppCompatActivity {
         black.setVisibility(View.INVISIBLE);
         orange.setVisibility(View.INVISIBLE);
         pink.setVisibility(View.INVISIBLE);*/
+
         finish();
         startActivity(new Intent(getApplicationContext(), ResultsActivity.class));
 

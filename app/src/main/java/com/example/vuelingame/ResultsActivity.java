@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class ResultsActivity extends AppCompatActivity implements View.OnClickListener {
 
     String p1, p2;
-    int s1, s2;
+    int s1, s2 ;
 
     Button home, newGame;
 
@@ -26,6 +26,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         textViewP2 = findViewById(R.id.textViewPlayer2);
         textViewS1 = findViewById(R.id.textViewScore1);
         textViewS2 = findViewById(R.id.textViewScore2);
+
 
         home=findViewById(R.id.home);
         home.setOnClickListener(this);
@@ -46,4 +47,5 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         }
 
     }
+
 }
