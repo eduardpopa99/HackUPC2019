@@ -121,7 +121,7 @@ public class GameActivity extends AppCompatActivity {
 
             if (hitCheck(pinkCenterX, pinkCenterY)) {
                 pinkY = frameHeight + 30;
-                vida++;
+                if(vida < 5) vida++;
 
             }
 
