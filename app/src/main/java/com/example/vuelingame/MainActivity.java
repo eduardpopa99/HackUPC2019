@@ -8,6 +8,7 @@ import android.service.autofill.OnClickAction;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+int comptador = 0;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -32,4 +33,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(getApplicationContext(), GameActivity.class));
         }
     }
+
+    exports.onDataAdded = functions.database.ref('/match{isOpen}').onCreate( event => {
+        if(comptador == 2){
+            StartGame(gameFrame);
+            comptador = 0;
+
+        }
+
+        else ++comptador;
+    });
+
 }

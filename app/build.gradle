@@ -37,20 +37,8 @@ dependencies {
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
 
 
-exports.countCommentsOnCreate = functions.database.ref('/workoutPosts/{workoutId}/info/comments/{commentId}').onCreate(event => {
-    const workoutId = event.params.workoutId;
-    return database.ref(`/workoutPosts/${workoutId}/meta/commentsCount`).transaction(addPrivateWorkout => {
-        return (addPrivateWorkout || 0) + 1;
-    });
-});
 
-exports.countCommentsonDelete = functions.database.ref('/workoutPosts/{workoutId}/info/comments/{commentId}').onDelete(event => {
-    const workoutId = event.params.workoutId;
 
-    return database.ref(`/workoutPosts/${workoutId}/meta/commentsCount`).transaction(deletePrivateWorkout => {
-        return (deletePrivateWorkout || 0) - 1;
-    });
-});
 
 
 

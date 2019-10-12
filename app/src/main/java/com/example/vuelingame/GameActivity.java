@@ -268,6 +268,7 @@ public class GameActivity extends AppCompatActivity {
     ////////////
 
     public void startGame(View view) {
+
         int w = gameFrame.getWidth();
         Log.d("TAG", "onCreate: " + w);
         start_flg = true;
