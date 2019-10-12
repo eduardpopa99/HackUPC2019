@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/base"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".GameActivity">
+    >
 
     <TextView
         android:id="@+id/scoreLabel"
@@ -18,7 +19,7 @@
         android:fontFamily="@font/rubrik"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
     <TextView
         android:id="@+id/lifeLabel"
@@ -31,7 +32,7 @@
         android:fontFamily="@font/rubrik"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
     <FrameLayout
         android:layout_marginHorizontal="25dp"
@@ -40,9 +41,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:background="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        >
 
         <ImageView
             android:id="@+id/box"
@@ -91,6 +90,7 @@
                 android:textStyle="bold" />
 
             <Button
+                android:text="YES"
                 android:layout_width="281dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
@@ -98,8 +98,7 @@
                 android:fontFamily="@font/rubrik"
                 android:textColor="@color/grey"
                 android:textSize="30dp"
-                android:onClick="startGame"
-                android:text="YES" />
+                android:onClick="startGame"/>
 
             <Button
                 android:layout_width="281dp"
