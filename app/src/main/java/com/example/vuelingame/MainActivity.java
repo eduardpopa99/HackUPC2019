@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button buttonStart;
     Button buttonInfo;
-    ImageView info;
+    ImageView info, logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonInfo.setOnClickListener(this);
 
         info = findViewById(R.id.info);
+        logo = findViewById(R.id.logo);
+
 
 
     }
@@ -46,11 +48,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
            if(info.getVisibility()==View.VISIBLE){
                info.setVisibility(View.INVISIBLE);
                buttonStart.setVisibility(View.VISIBLE);
+               logo.setVisibility(View.VISIBLE);
 
            }
            else{
                info.setVisibility(View.VISIBLE);
                buttonStart.setVisibility(View.INVISIBLE);
+               logo.setVisibility(View.INVISIBLE);
            }
 
 
