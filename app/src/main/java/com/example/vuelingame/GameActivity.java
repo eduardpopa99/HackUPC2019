@@ -107,7 +107,7 @@ public class GameActivity extends AppCompatActivity {
         // Add timeCount
         timeCount += 20;
 
-        if(timeCount%1100 == 0) difficulty += 0.1f;
+        if(timeCount%1200 == 0) difficulty += 0.01f;
 
         // Orange
         orangeY += 12*difficulty;
