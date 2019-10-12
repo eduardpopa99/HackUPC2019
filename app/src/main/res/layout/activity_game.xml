@@ -103,13 +103,6 @@
                 android:onClick="quitGame"
                 android:text="Quit" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Catch the Ball ver2"
-                android:textSize="24sp" />
-
         </LinearLayout>
 
     </FrameLayout>
