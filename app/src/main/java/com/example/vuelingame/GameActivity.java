@@ -1,17 +1,25 @@
 package com.example.vuelingame;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.view.View.OnTouchListener;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Timer;
@@ -30,6 +38,8 @@ public class GameActivity extends AppCompatActivity {
     private ImageView box, black, orange, pink;
     private Drawable imageBoxRight, imageBoxLeft;
 
+    private View baseView;
+
     // Size
     private int boxSize;
 
@@ -40,16 +50,18 @@ public class GameActivity extends AppCompatActivity {
     private float pinkX, pinkY;
 
     // Score
-    private TextView scoreLabel, highScoreLabel, lifeLabel;
-    private int score, highScore, timeCount, vida;
+    private TextView scoreLabel, readyLabel, lifeLabel;
+    private int timeCount, vida, score;
+
 
     // Class
     private Timer timer;
     private Handler handler = new Handler();
+    private float difficulty = 1.0f;
 
     // Status
     private boolean start_flg = false;
-    private boolean action_flg = false;
+    //private boolean action_flg = false;
     private boolean pink_flg = false;
 
 
@@ -58,6 +70,20 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        baseView = findViewById(R.id.base);
+        baseView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+               setupView();
+               startGame(gameFrame);
+            }
+        });
+    }
+
+
+
+    private void setupView() {
         gameFrame = findViewById(R.id.gameFrame);
         startLayout = findViewById(R.id.startLayout);
         box = findViewById(R.id.box);
@@ -66,35 +92,37 @@ public class GameActivity extends AppCompatActivity {
         pink = findViewById(R.id.pink);
         scoreLabel = findViewById(R.id.scoreLabel);
         lifeLabel = findViewById(R.id.lifeLabel);
-        highScoreLabel = findViewById(R.id.highScoreLabel);
+        readyLabel = findViewById(R.id.readyLabel);
 
         imageBoxLeft = getResources().getDrawable(R.drawable.box_left);
         imageBoxRight = getResources().getDrawable(R.drawable.box_right);
 
-        // High Score
-        highScore = 0;
+        score = 0;
         vida=3;
-        String scoreText = getString(R.string.highScore) + highScore;
-        highScoreLabel.setText(scoreText);
     }
+
 
     public void changePos() {
 
         // Add timeCount
         timeCount += 20;
 
+        if(timeCount%1200 == 0) difficulty += 0.01f;
+
         // Orange
-        orangeY += 12;
+        orangeY += 12*difficulty;
 
         float orangeCenterX = orangeX + (float) orange.getWidth() / 2;
         float orangeCenterY = orangeY + (float) orange.getHeight() / 2;
 
         if (hitCheck(orangeCenterX, orangeCenterY)) {
+            Log.d("TAG", "changePos: point?");
             orangeY = frameHeight + 100;
             score += 10;
         }
 
         if (orangeY > frameHeight) {
+            Log.d("TAG", "changePos: perdio?");
             orangeY = -100;
             orangeX = (float) Math.floor(Math.random() * (frameWidth - orange.getWidth()));
         }
@@ -109,25 +137,28 @@ public class GameActivity extends AppCompatActivity {
         }
 
         if (pink_flg) {
-            pinkY += 20;
+            pinkY += 20*difficulty;
 
             float pinkCenterX = pinkX + (float) pink.getWidth() / 2;
             float pinkCenterY = pinkY + (float) pink.getWidth() / 2;
 
             if (hitCheck(pinkCenterX, pinkCenterY)) {
                 pinkY = frameHeight + 30;
-                score += 30;
-                vida++;
+
+                if(vida < 5) vida++;
+
 
             }
 
-            if (pinkY > frameHeight) pink_flg = false;
+            if (pinkY > frameHeight){
+                pink_flg = false;
+            }
             pink.setX(pinkX);
             pink.setY(pinkY);
         }
 
         // Black
-        blackY += 18;
+        blackY += 18*difficulty;
 
         float blackCenterX = blackX + (float) black.getWidth() / 2;
         float blackCenterY = blackY + (float) black.getHeight() / 2;
@@ -139,7 +170,6 @@ public class GameActivity extends AppCompatActivity {
             if (vida==0) {
                 gameOver();
             }
-
         }
 
         if (blackY > frameHeight) {
@@ -150,6 +180,8 @@ public class GameActivity extends AppCompatActivity {
         black.setX(blackX);
         black.setY(blackY);
 
+        ////////
+        /*
         // Move Box
         if (action_flg) {
             // Touching
@@ -160,6 +192,8 @@ public class GameActivity extends AppCompatActivity {
             boxX -= 14;
             box.setImageDrawable(imageBoxLeft);
         }
+        */
+        ////////
 
         // Check box position.
         if (boxX < 0) {
@@ -207,17 +241,10 @@ public class GameActivity extends AppCompatActivity {
         orange.setVisibility(View.INVISIBLE);
         pink.setVisibility(View.INVISIBLE);
 
-        Log.d("TAG", "gameOver: "+score +" "+highScore);
-
-        // Update High Score
-        if (score > highScore) {
-            highScore = score;
-            String highScoreText = getString(R.string.highScore) + highScore;
-            highScoreLabel.setText(highScoreText);
-
-        }
     }
 
+    //////////
+    /*
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (start_flg) {
@@ -231,8 +258,12 @@ public class GameActivity extends AppCompatActivity {
         }
         return true;
     }
+     */
+    ////////////
 
     public void startGame(View view) {
+        int w = gameFrame.getWidth();
+        Log.d("TAG", "onCreate: " + w);
         start_flg = true;
         startLayout.setVisibility(View.INVISIBLE);
 
@@ -247,6 +278,34 @@ public class GameActivity extends AppCompatActivity {
         }
 
         frameWidth = initialFrameWidth;
+
+        boxX = 0;
+
+        box.setOnTouchListener(new OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.d("TAG", "onTouch: " + event.toString());
+                final int X = (int) event.getX();
+                Log.d("TAG", "onTouch: " + X + " " + boxX);
+                if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_MOVE) {
+                    Log.d("TAG", "onTouch12: " + X + " " + boxX + " " + frameWidth);
+                    // todo: crashes with a divide by zero
+                    boxX += X%frameWidth;
+                    Log.d("TAG", "onTouch13: " + X + " " + boxX + frameHeight);
+                    box.setImageDrawable(imageBoxRight);
+
+                    if (boxX < 0) {
+                        boxX = 0;
+                        box.setImageDrawable(imageBoxRight);
+                    }
+                    if (frameWidth - boxSize < boxX) {
+                        boxX = frameWidth - boxSize;
+                        box.setImageDrawable(imageBoxLeft);
+                    }
+                }
+                return true;
+            }
+        });
 
         box.setX(0.0f);
         black.setY(3000.0f);
@@ -292,5 +351,11 @@ public class GameActivity extends AppCompatActivity {
             finish();
         }
     }
+
+    public void returnHome(View view) {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
+
+
 
 }

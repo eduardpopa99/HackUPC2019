@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/base"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".GameActivity">
+    >
 
     <TextView
         android:id="@+id/scoreLabel"
@@ -15,9 +16,10 @@
         android:gravity="center"
         android:paddingVertical="7dp"
         android:text="Score : 0"
+        android:fontFamily="@font/rubrik"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
     <TextView
         android:id="@+id/lifeLabel"
@@ -27,24 +29,24 @@
         android:gravity="center"
         android:paddingVertical="7dp"
         android:text="Lives : 3"
+        android:fontFamily="@font/rubrik"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
     <FrameLayout
+        android:layout_marginHorizontal="25dp"
         android:id="@+id/gameFrame"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:background="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        >
 
         <ImageView
             android:id="@+id/box"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:src="@drawable/box_right"
             android:visibility="invisible" />
@@ -79,35 +81,36 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/highScoreLabel"
+                android:id="@+id/readyLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:text="High Score : 0"
+                android:text="ARE YOU READY TO FLY?"
+                android:fontFamily="@font/rubrik"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <Button
+                android:text="YES"
+                android:layout_width="281dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:background="@drawable/start_button"
+                android:fontFamily="@font/rubrik"
+                android:textColor="@color/grey"
+                android:textSize="30dp"
+                android:onClick="startGame"/>
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:onClick="startGame"
-                android:text="START" />
-
-            <Button
-                android:layout_width="wrap_content"
+                android:layout_width="281dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:onClick="quitGame"
-                android:text="Quit" />
+                android:background="@drawable/return_button"
+                android:fontFamily="@font/rubrik"
+                android:textColor="@color/yellow"
+                android:textSize="30dp"
+                android:onClick="returnHome"
+                android:text="NO" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Catch the Ball ver2"
-                android:textSize="24sp" />
 
         </LinearLayout>
 
