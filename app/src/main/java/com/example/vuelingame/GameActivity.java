@@ -1,7 +1,5 @@
 package com.example.vuelingame;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
@@ -9,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,7 +42,6 @@ public class GameActivity extends AppCompatActivity {
     // Score
     private TextView scoreLabel, highScoreLabel, lifeLabel;
     private int score, highScore, timeCount, vida;
-    private SharedPreferences settings;
 
     // Class
     private Timer timer;
@@ -76,10 +72,10 @@ public class GameActivity extends AppCompatActivity {
         imageBoxRight = getResources().getDrawable(R.drawable.box_right);
 
         // High Score
-        settings = getSharedPreferences("GAME_DATA", Context.MODE_PRIVATE);
         highScore = 0;
         vida=3;
-        highScoreLabel.setText("High Score : 0");
+        String scoreText = getString(R.string.highScore) + highScore;
+        highScoreLabel.setText(scoreText);
     }
 
     public void changePos() {
@@ -90,8 +86,8 @@ public class GameActivity extends AppCompatActivity {
         // Orange
         orangeY += 12;
 
-        float orangeCenterX = orangeX + orange.getWidth() / 2;
-        float orangeCenterY = orangeY + orange.getHeight() / 2;
+        float orangeCenterX = orangeX + (float) orange.getWidth() / 2;
+        float orangeCenterY = orangeY + (float) orange.getHeight() / 2;
 
         if (hitCheck(orangeCenterX, orangeCenterY)) {
             orangeY = frameHeight + 100;
@@ -115,8 +111,8 @@ public class GameActivity extends AppCompatActivity {
         if (pink_flg) {
             pinkY += 20;
 
-            float pinkCenterX = pinkX + pink.getWidth() / 2;
-            float pinkCenterY = pinkY + pink.getWidth() / 2;
+            float pinkCenterX = pinkX + (float) pink.getWidth() / 2;
+            float pinkCenterY = pinkY + (float) pink.getWidth() / 2;
 
             if (hitCheck(pinkCenterX, pinkCenterY)) {
                 pinkY = frameHeight + 30;
@@ -133,8 +129,8 @@ public class GameActivity extends AppCompatActivity {
         // Black
         blackY += 18;
 
-        float blackCenterX = blackX + black.getWidth() / 2;
-        float blackCenterY = blackY + black.getHeight() / 2;
+        float blackCenterX = blackX + (float) black.getWidth() / 2;
+        float blackCenterY = blackY + (float) black.getHeight() / 2;
 
         if (hitCheck(blackCenterX, blackCenterY)) {
             blackY = frameHeight + 100;
@@ -177,17 +173,17 @@ public class GameActivity extends AppCompatActivity {
 
         box.setX(boxX);
 
-        scoreLabel.setText("Score : " + score);
-        lifeLabel.setText("Lifes : " + vida);
+        String scoreText = getString(R.string.score) + score;
+        String livesText = getString(R.string.lives) + vida;
+
+        scoreLabel.setText(scoreText);
+        lifeLabel.setText(livesText);
 
     }
 
     public boolean hitCheck(float x, float y) {
-        if (boxX <= x && x <= boxX + boxSize &&
-                boxY <= y && y <= frameHeight) {
-            return true;
-        }
-        return false;
+        return boxX <= x && x <= boxX + boxSize &&
+                boxY <= y && y <= frameHeight;
     }
 
 
@@ -216,7 +212,8 @@ public class GameActivity extends AppCompatActivity {
         // Update High Score
         if (score > highScore) {
             highScore = score;
-            highScoreLabel.setText("High Score : " + highScore);
+            String highScoreText = getString(R.string.highScore) + highScore;
+            highScoreLabel.setText(highScoreText);
 
         }
     }
@@ -268,7 +265,8 @@ public class GameActivity extends AppCompatActivity {
         timeCount = 0;
         score = 0;
         vida = 3;
-        scoreLabel.setText("Score : 0");
+        String scoreText = getString(R.string.score) + score;
+        scoreLabel.setText(scoreText);
 
 
         timer = new Timer();
