@@ -1,20 +1,25 @@
 package com.example.vuelingame;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View.OnTouchListener;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Timer;
@@ -32,6 +37,8 @@ public class GameActivity extends AppCompatActivity {
     // Image
     private ImageView box, black, orange, pink;
     private Drawable imageBoxRight, imageBoxLeft;
+
+    private View baseView;
 
     // Size
     private int boxSize;
@@ -63,6 +70,20 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        baseView = findViewById(R.id.base);
+        baseView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+               setupView();
+               startGame(gameFrame);
+            }
+        });
+    }
+
+
+
+    private void setupView() {
         gameFrame = findViewById(R.id.gameFrame);
         startLayout = findViewById(R.id.startLayout);
         box = findViewById(R.id.box);
@@ -79,6 +100,7 @@ public class GameActivity extends AppCompatActivity {
         score = 0;
         vida=3;
     }
+
 
     public void changePos() {
 
@@ -267,6 +289,7 @@ public class GameActivity extends AppCompatActivity {
                 Log.d("TAG", "onTouch: " + X + " " + boxX);
                 if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_MOVE) {
                     Log.d("TAG", "onTouch12: " + X + " " + boxX + " " + frameWidth);
+                    // todo: crashes with a divide by zero
                     boxX += X%frameWidth;
                     Log.d("TAG", "onTouch13: " + X + " " + boxX + frameHeight);
                     box.setImageDrawable(imageBoxRight);
@@ -332,4 +355,7 @@ public class GameActivity extends AppCompatActivity {
     public void returnHome(View view) {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
+
+
+
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.service.autofill.OnClickAction;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 
 
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button buttonStart;
     Button buttonQuit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonQuit.setOnClickListener(this);
 
     }
+
+
+
+
 
     @Override
     public void onClick(View v) {
