@@ -30,7 +30,7 @@ public class GameActivity extends AppCompatActivity {
     private LinearLayout startLayout;
 
     // Image
-    private ImageView box, black, orange, pink;
+    private ImageView box, black, orange, pink,  cor2, cor3 , cor4 , cor5;
     private Drawable imageBoxRight, imageBoxLeft;
 
     // Size
@@ -43,7 +43,7 @@ public class GameActivity extends AppCompatActivity {
     private float pinkX, pinkY;
 
     // Score
-    private TextView scoreLabel, readyLabel, lifeLabel;
+    private TextView scoreLabel, readyLabel;
     private int timeCount, vida, score;
 
 
@@ -70,8 +70,11 @@ public class GameActivity extends AppCompatActivity {
         orange = findViewById(R.id.orange);
         pink = findViewById(R.id.pink);
         scoreLabel = findViewById(R.id.scoreLabel);
-        lifeLabel = findViewById(R.id.lifeLabel);
         readyLabel = findViewById(R.id.readyLabel);
+        cor2  = findViewById(R.id.cor2);
+        cor3  = findViewById(R.id.cor3);
+        cor4 = findViewById(R.id.cor4);
+        cor5  = findViewById(R.id.cor5);
 
         imageBoxLeft = getResources().getDrawable(R.drawable.box_left);
         imageBoxRight = getResources().getDrawable(R.drawable.box_right);
@@ -125,6 +128,12 @@ public class GameActivity extends AppCompatActivity {
 
                 if(vida < 5) vida++;
 
+                if(vida == 2)cor2.setVisibility(View.VISIBLE);
+                else if(vida == 3)cor3.setVisibility(View.VISIBLE);
+                else if(vida == 4)cor4.setVisibility(View.VISIBLE);
+                else if(vida == 5)cor5.setVisibility(View.VISIBLE);
+
+
 
             }
 
@@ -143,7 +152,12 @@ public class GameActivity extends AppCompatActivity {
 
         if (hitCheck(blackCenterX, blackCenterY)) {
             blackY = frameHeight + 100;
+            if(vida == 2)cor2.setVisibility(View.INVISIBLE);
+            else if(vida == 3)cor3.setVisibility(View.INVISIBLE);
+            else if(vida == 4)cor4.setVisibility(View.INVISIBLE);
+            else if(vida == 5)cor5.setVisibility(View.INVISIBLE);
             --vida;
+
             // Change FrameWidth
             if (vida==0) {
                 gameOver();
@@ -186,10 +200,10 @@ public class GameActivity extends AppCompatActivity {
         box.setX(boxX);
 
         String scoreText = getString(R.string.score) + score;
-        String livesText = getString(R.string.lives) + vida;
+
 
         scoreLabel.setText(scoreText);
-        lifeLabel.setText(livesText);
+
 
     }
 
@@ -297,6 +311,8 @@ public class GameActivity extends AppCompatActivity {
         black.setVisibility(View.VISIBLE);
         orange.setVisibility(View.VISIBLE);
         pink.setVisibility(View.VISIBLE);
+        cor2.setVisibility(View.VISIBLE);
+        cor3.setVisibility(View.VISIBLE);
 
         timeCount = 0;
         score = 0;
