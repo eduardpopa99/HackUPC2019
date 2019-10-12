@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.service.autofill.OnClickAction;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button buttonStart;
     Button buttonInfo;
     ImageView info, logo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
+
+
+
 
     @Override
     public void onClick(View v) {
