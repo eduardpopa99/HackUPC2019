@@ -32,8 +32,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
+        android:layout_marginHorizontal="25dp"
         android:id="@+id/gameFrame"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:background="@android:color/white"

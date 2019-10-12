@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.view.View.OnTouchListener;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,7 +51,7 @@ public class GameActivity extends AppCompatActivity {
 
     // Status
     private boolean start_flg = false;
-    private boolean action_flg = false;
+    //private boolean action_flg = false;
     private boolean pink_flg = false;
 
 
@@ -150,6 +152,8 @@ public class GameActivity extends AppCompatActivity {
         black.setX(blackX);
         black.setY(blackY);
 
+        ////////
+        /*
         // Move Box
         if (action_flg) {
             // Touching
@@ -160,6 +164,8 @@ public class GameActivity extends AppCompatActivity {
             boxX -= 14;
             box.setImageDrawable(imageBoxLeft);
         }
+        */
+        ////////
 
         // Check box position.
         if (boxX < 0) {
@@ -218,6 +224,8 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    //////////
+    /*
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (start_flg) {
@@ -231,8 +239,12 @@ public class GameActivity extends AppCompatActivity {
         }
         return true;
     }
+     */
+    ////////////
 
     public void startGame(View view) {
+        int w = gameFrame.getWidth();
+        Log.d("TAG", "onCreate: " + w);
         start_flg = true;
         startLayout.setVisibility(View.INVISIBLE);
 
@@ -247,6 +259,33 @@ public class GameActivity extends AppCompatActivity {
         }
 
         frameWidth = initialFrameWidth;
+
+        boxX = 0;
+
+        box.setOnTouchListener(new OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.d("TAG", "onTouch: " + event.toString());
+                final int X = (int) event.getX();
+                Log.d("TAG", "onTouch: " + X + " " + boxX);
+                if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_MOVE) {
+                    Log.d("TAG", "onTouch12: " + X + " " + boxX + " " + frameWidth);
+                    boxX += X%frameWidth;
+                    Log.d("TAG", "onTouch13: " + X + " " + boxX + frameHeight);
+                    box.setImageDrawable(imageBoxRight);
+
+                    if (boxX < 0) {
+                        boxX = 0;
+                        box.setImageDrawable(imageBoxRight);
+                    }
+                    if (frameWidth - boxSize < boxX) {
+                        boxX = frameWidth - boxSize;
+                        box.setImageDrawable(imageBoxLeft);
+                    }
+                }
+                return true;
+            }
+        });
 
         box.setX(0.0f);
         black.setY(3000.0f);
