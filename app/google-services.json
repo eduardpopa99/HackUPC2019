@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "761398841650",
+    "firebase_url": "https://vuelingame.firebaseio.com",
+    "project_id": "vuelingame",
+    "storage_bucket": "vuelingame.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761398841650:android:810f5393d131283e93872b",
+        "android_client_info": {
+          "package_name": "com.example.vuelingame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761398841650-c3k90lfrh4ptrbipcse3458fvnklk9il.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vuelingame",
+            "certificate_hash": "d25a9feda16f7240e12bfd51276ccb475cbd143a"
+          }
+        },
+        {
+          "client_id": "761398841650-r3m6rq4suaaqvlbfqr98oadb78gnglr0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2cSoPSPgj3Uhn5klUU9OqysyqzPl88jc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761398841650-r3m6rq4suaaqvlbfqr98oadb78gnglr0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,8 +9,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    //EditText edtjugador1 edtjugador2 edtpuntuacio1 edtpuntuacio2
+    FirebaseDatabase database;
+    DatabaseReference jugadors;
+
 
     Button buttonStart;
 
@@ -19,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        database = FirebaseDatabase.getInstance();
+        jugadors = database.getReference("jugadors");
         buttonStart = findViewById(R.id.buttonStart);
         buttonStart.setOnClickListener(this);
 
