@@ -43,11 +43,12 @@ public class GameActivity extends AppCompatActivity {
 
     // Score
     private TextView scoreLabel, highScoreLabel, lifeLabel;
-    private int score, highScore, timeCount, vida;
+    private int highScore, timeCount, vida, score;
 
     // Class
     private Timer timer;
     private Handler handler = new Handler();
+    private float difficulty = 1.0f;
 
     // Status
     private boolean start_flg = false;
@@ -75,6 +76,7 @@ public class GameActivity extends AppCompatActivity {
 
         // High Score
         highScore = 0;
+        score = 0;
         vida=3;
         String scoreText = getString(R.string.highScore) + highScore;
         highScoreLabel.setText(scoreText);
@@ -85,18 +87,22 @@ public class GameActivity extends AppCompatActivity {
         // Add timeCount
         timeCount += 20;
 
+        if(timeCount%1100 == 0) difficulty += 0.1f;
+
         // Orange
-        orangeY += 12;
+        orangeY += 12*difficulty;
 
         float orangeCenterX = orangeX + (float) orange.getWidth() / 2;
         float orangeCenterY = orangeY + (float) orange.getHeight() / 2;
 
         if (hitCheck(orangeCenterX, orangeCenterY)) {
+            Log.d("TAG", "changePos: point?");
             orangeY = frameHeight + 100;
             score += 10;
         }
 
         if (orangeY > frameHeight) {
+            Log.d("TAG", "changePos: perdio?");
             orangeY = -100;
             orangeX = (float) Math.floor(Math.random() * (frameWidth - orange.getWidth()));
         }
@@ -111,25 +117,26 @@ public class GameActivity extends AppCompatActivity {
         }
 
         if (pink_flg) {
-            pinkY += 20;
+            pinkY += 20*difficulty;
 
             float pinkCenterX = pinkX + (float) pink.getWidth() / 2;
             float pinkCenterY = pinkY + (float) pink.getWidth() / 2;
 
             if (hitCheck(pinkCenterX, pinkCenterY)) {
                 pinkY = frameHeight + 30;
-                score += 30;
                 vida++;
 
             }
 
-            if (pinkY > frameHeight) pink_flg = false;
+            if (pinkY > frameHeight){
+                pink_flg = false;
+            }
             pink.setX(pinkX);
             pink.setY(pinkY);
         }
 
         // Black
-        blackY += 18;
+        blackY += 18*difficulty;
 
         float blackCenterX = blackX + (float) black.getWidth() / 2;
         float blackCenterY = blackY + (float) black.getHeight() / 2;
@@ -141,7 +148,6 @@ public class GameActivity extends AppCompatActivity {
             if (vida==0) {
                 gameOver();
             }
-
         }
 
         if (blackY > frameHeight) {
