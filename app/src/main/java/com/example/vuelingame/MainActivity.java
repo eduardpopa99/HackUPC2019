@@ -10,12 +10,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageView;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button buttonStart;
-    Button buttonQuit;
+    Button buttonInfo;
+    ImageView info, logo;
 
 
     @Override
@@ -26,8 +28,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonStart = findViewById(R.id.buttonStart);
         buttonStart.setOnClickListener(this);
 
-        buttonQuit = findViewById(R.id.buttonInfo);
-        buttonQuit.setOnClickListener(this);
+        buttonInfo = findViewById(R.id.buttonInfo);
+        buttonInfo.setOnClickListener(this);
+
+        info = findViewById(R.id.info);
+        logo = findViewById(R.id.logo);
+
+
 
     }
 
@@ -42,9 +49,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             finish();
             startActivity(new Intent(getApplicationContext(), GameActivity.class));
         }
-        else if(v == buttonQuit){
-            finish();
-            System.exit(0);
+        else if(v == buttonInfo){
+
+           if(info.getVisibility()==View.VISIBLE){
+               info.setVisibility(View.INVISIBLE);
+               buttonStart.setVisibility(View.VISIBLE);
+               logo.setVisibility(View.VISIBLE);
+
+           }
+           else{
+               info.setVisibility(View.VISIBLE);
+               buttonStart.setVisibility(View.INVISIBLE);
+               logo.setVisibility(View.INVISIBLE);
+           }
+
 
         }
     }
