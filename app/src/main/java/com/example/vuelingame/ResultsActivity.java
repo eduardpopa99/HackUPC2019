@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class ResultsActivity extends AppCompatActivity implements View.OnClickListener {
+public  class ResultsActivity extends AppCompatActivity implements View.OnClickListener  {
 
-    String p1, p2;
-    int s1, s2 ;
+
+    String p1, p2, s1, s2 ;
 
     Button home, newGame;
 
