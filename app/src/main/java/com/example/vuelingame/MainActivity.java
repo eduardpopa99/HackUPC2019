@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button buttonStart;
     Button buttonInfo;
-    ImageView info;
+    ImageView info, logo;
 
 
     @Override
