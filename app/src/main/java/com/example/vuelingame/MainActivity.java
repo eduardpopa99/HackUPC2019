@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         info = findViewById(R.id.info);
         logo = findViewById(R.id.logo);
 
-
-
     }
 
 
