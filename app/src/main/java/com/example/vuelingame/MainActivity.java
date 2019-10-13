@@ -3,6 +3,8 @@ package com.example.vuelingame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.icu.text.IDNA;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.service.autofill.OnClickAction;
@@ -17,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button buttonStart;
     Button buttonInfo;
-    ImageView info, logo;
+    ImageView info;
 
 
     @Override
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         info = findViewById(R.id.info);
         logo = findViewById(R.id.logo);
 
+
     }
 
 
@@ -48,19 +51,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(getApplicationContext(), GameActivity.class));
         }
         else if(v == buttonInfo){
-
-           if(info.getVisibility()==View.VISIBLE){
-               info.setVisibility(View.INVISIBLE);
-               buttonStart.setVisibility(View.VISIBLE);
-               logo.setVisibility(View.VISIBLE);
-
-           }
-           else{
-               info.setVisibility(View.VISIBLE);
-               buttonStart.setVisibility(View.INVISIBLE);
-               logo.setVisibility(View.INVISIBLE);
-           }
-
+            if (info.getVisibility()==View.VISIBLE) {
+                info.setVisibility(View.INVISIBLE);
+                buttonStart.setVisibility(View.VISIBLE);
+                logo.setVisibility(View.VISIBLE);
+            }
+            else if (info.getVisibility()==View.INVISIBLE){
+                info.setVisibility(View.VISIBLE);
+                buttonStart.setVisibility(View.INVISIBLE);  
+                logo.setVisibility(View.INVISIBLE);              
+            }
 
         }
     }

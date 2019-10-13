@@ -35,7 +35,7 @@ public class GameActivity extends AppCompatActivity {
     private LinearLayout startLayout;
 
     // Image
-    private ImageView box, black, orange, pink,  cor2, cor3 , cor4 , cor5;
+    private ImageView box, black, orange, pink, cor1,cor2,cor3,cor4,cor5;
     private Drawable imageBoxRight, imageBoxLeft;
 
     private View baseView;
@@ -90,12 +90,13 @@ public class GameActivity extends AppCompatActivity {
         black = findViewById(R.id.black);
         orange = findViewById(R.id.orange);
         pink = findViewById(R.id.pink);
+        cor1 = findViewById(R.id.cor1);
+        cor2 = findViewById(R.id.cor2);
+        cor3 = findViewById(R.id.cor3);
+        cor4 = findViewById(R.id.cor4);
+        cor5 = findViewById(R.id.cor5);
         scoreLabel = findViewById(R.id.scoreLabel);
         readyLabel = findViewById(R.id.readyLabel);
-        cor2  = findViewById(R.id.cor2);
-        cor3  = findViewById(R.id.cor3);
-        cor4 = findViewById(R.id.cor4);
-        cor5  = findViewById(R.id.cor5);
 
         imageBoxLeft = getResources().getDrawable(R.drawable.box_left);
         imageBoxRight = getResources().getDrawable(R.drawable.box_right);
@@ -150,11 +151,11 @@ public class GameActivity extends AppCompatActivity {
 
                 if(vida < 5) vida++;
 
-                if(vida == 2)cor2.setVisibility(View.VISIBLE);
-                else if(vida == 3)cor3.setVisibility(View.VISIBLE);
-                else if(vida == 4)cor4.setVisibility(View.VISIBLE);
-                else if(vida == 5)cor5.setVisibility(View.VISIBLE);
-
+                if (vida==1)cor1.setVisibility(View.VISIBLE);
+                else if (vida==2)cor2.setVisibility(View.VISIBLE);
+                else if (vida==3)cor3.setVisibility(View.VISIBLE);
+                else if (vida==4)cor4.setVisibility(View.VISIBLE);
+                else if (vida==5)cor5.setVisibility(View.VISIBLE);
 
 
             }
@@ -174,10 +175,12 @@ public class GameActivity extends AppCompatActivity {
 
         if (hitCheck(blackCenterX, blackCenterY)) {
             blackY = frameHeight + 100;
-            if(vida == 2)cor2.setVisibility(View.INVISIBLE);
-            else if(vida == 3)cor3.setVisibility(View.INVISIBLE);
-            else if(vida == 4)cor4.setVisibility(View.INVISIBLE);
-            else if(vida == 5)cor5.setVisibility(View.INVISIBLE);
+            if (vida==1)cor1.setVisibility(View.INVISIBLE);
+            else if (vida==2)cor2.setVisibility(View.INVISIBLE);
+            else if (vida==3)cor3.setVisibility(View.INVISIBLE);
+            else if (vida==4)cor4.setVisibility(View.INVISIBLE);
+            else if (vida==5)cor5.setVisibility(View.INVISIBLE);
+
             --vida;
 
             // Change FrameWidth
@@ -223,9 +226,7 @@ public class GameActivity extends AppCompatActivity {
 
         String scoreText = getString(R.string.score) + score;
 
-
         scoreLabel.setText(scoreText);
-
 
     }
 
@@ -249,15 +250,11 @@ public class GameActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        /*startLayout.setVisibility(View.VISIBLE);
+        startLayout.setVisibility(View.VISIBLE);
         box.setVisibility(View.INVISIBLE);
         black.setVisibility(View.INVISIBLE);
         orange.setVisibility(View.INVISIBLE);
-        pink.setVisibility(View.INVISIBLE);*/
-
-        finish();
-        startActivity(new Intent(getApplicationContext(), ResultsActivity.class));
-
+        pink.setVisibility(View.INVISIBLE);
 
     }
 
@@ -284,6 +281,9 @@ public class GameActivity extends AppCompatActivity {
         Log.d("TAG", "onCreate: " + w);
         start_flg = true;
         startLayout.setVisibility(View.INVISIBLE);
+        cor1.setVisibility(View.VISIBLE);
+        cor2.setVisibility(View.VISIBLE);
+        cor3.setVisibility(View.VISIBLE);
 
         if (frameHeight == 0) {
             frameHeight = gameFrame.getHeight();
@@ -338,8 +338,6 @@ public class GameActivity extends AppCompatActivity {
         black.setVisibility(View.VISIBLE);
         orange.setVisibility(View.VISIBLE);
         pink.setVisibility(View.VISIBLE);
-        cor2.setVisibility(View.VISIBLE);
-        cor3.setVisibility(View.VISIBLE);
 
         timeCount = 0;
         score = 0;
@@ -364,13 +362,13 @@ public class GameActivity extends AppCompatActivity {
         }, 0, 20);
     }
 
-/*    public void quitGame(View view) {
+    public void quitGame(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             finishAndRemoveTask();
         } else {
             finish();
         }
-    }*/
+    }
 
     public void returnHome(View view) {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
