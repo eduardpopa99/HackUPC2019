@@ -16,23 +16,70 @@
         android:gravity="center"
         android:paddingVertical="7dp"
         android:text="Score : 0"
+        android:visibility="invisible"
         android:fontFamily="@font/rubrik"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        />
 
-    <TextView
-        android:id="@+id/lifeLabel"
+    />
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:gravity="center"
-        android:paddingVertical="7dp"
-        android:text="Lives : 3"
-        android:fontFamily="@font/rubrik"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        />
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/cor1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/cor"
+            android:visibility="invisible"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <ImageView
+            android:id="@+id/cor2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@id/cor1"
+            android:src="@drawable/cor"
+            android:visibility="invisible"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <ImageView
+            android:id="@+id/cor3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@id/cor2"
+            android:src="@drawable/cor"
+            android:visibility="invisible"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <ImageView
+            android:id="@+id/cor4"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@id/cor3"
+            android:src="@drawable/cor"
+            android:visibility="invisible"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <ImageView
+            android:id="@+id/cor5"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@id/cor4"
+            android:src="@drawable/cor"
+            android:visibility="invisible"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+    </LinearLayout>
 
     <FrameLayout
         android:layout_marginHorizontal="25dp"
@@ -40,35 +87,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:background="@android:color/white"
-        >
+        android:background="@android:color/white">
 
         <ImageView
             android:id="@+id/box"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="bottom"
             android:src="@drawable/box_right"
             android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/black"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/black"
             android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/orange"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/orange"
             android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/pink"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/pink"
             android:visibility="invisible" />
 
@@ -82,34 +128,13 @@
 
             <TextView
                 android:id="@+id/readyLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ARE YOU READY TO FLY?"
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
                 android:fontFamily="@font/rubrik"
+                android:gravity="center"
+                android:text="WAITING FOR AN OPPONENT..."
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
-            <Button
-                android:text="YES"
-                android:layout_width="281dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:background="@drawable/start_button"
-                android:fontFamily="@font/rubrik"
-                android:textColor="@color/grey"
-                android:textSize="30dp"
-                android:onClick="startGame"/>
-
-            <Button
-                android:layout_width="281dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/return_button"
-                android:fontFamily="@font/rubrik"
-                android:textColor="@color/yellow"
-                android:textSize="30dp"
-                android:onClick="returnHome"
-                android:text="NO" />
 
 
         </LinearLayout>
