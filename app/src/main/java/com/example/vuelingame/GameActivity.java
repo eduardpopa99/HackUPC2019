@@ -41,7 +41,7 @@ public class GameActivity extends AppCompatActivity {
     private LinearLayout startLayout;
 
     // Image
-    private ImageView box, black, orange, pink,  cor2, cor3 , cor4 , cor5;
+    private ImageView box, black, orange, pink, cor1,  cor2, cor3 , cor4 , cor5;
     private Drawable imageBoxRight, imageBoxLeft;
 
     private View baseView;
@@ -73,15 +73,20 @@ public class GameActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private Boolean action = false;
     private Boolean action2 = false;
+    private Boolean action3 = false;
+
+    private int person;
 
     private void startMatch(){
         action = true;
+        action2 = true;
         Match match = new Match("-5", "-5", "false");
         databaseReference.setValue(match);
         startGame(gameFrame);
     }
 
     private void waitOpponent(){
+        person = 1;
         action = true;
         Match match = new Match("-5", "-5", "true");
         databaseReference.setValue(match);
@@ -95,7 +100,6 @@ public class GameActivity extends AppCompatActivity {
                     if (openMatch.equals("true")) {
                         Log.d("TAG", "onCreate2: obert");
                     } else {
-                        action = true;
                         Log.d("TAG", "onCreate2: tancat");
                         startMatch();
                     }
@@ -114,6 +118,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        Log.d("TAG", "test3: ");
         configFireBase();
 
         //Log.d("TAG", "onCreate: " + databaseReference.toString());
@@ -132,17 +137,19 @@ public class GameActivity extends AppCompatActivity {
     private void configFireBase(){
         databaseReference = FirebaseDatabase.getInstance().getReference("match");
 
-        if(!action) {
+            Log.d("TAG", "test1: ");
 
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    //Match match1 =
+                    Log.d("TAG", "test2: ");
                     if(!action) {
+                        action = true;
                         String openMatch = dataSnapshot.getValue(Match.class).getIsOpen();
                         //Log.d("TAG", "onDataChange: " + match1.getIsOpen());
                         if (openMatch.equals("true")) {
                             Log.d("TAG", "onCreate1: obert");
+                            person = 2;
                             startMatch();
                         } else {
                             Log.d("TAG", "onCreate1: tancat");
@@ -156,7 +163,7 @@ public class GameActivity extends AppCompatActivity {
 
                 }
             });
-        }
+
     }
 
     private void setupView() {
@@ -168,6 +175,7 @@ public class GameActivity extends AppCompatActivity {
         pink = findViewById(R.id.pink);
         scoreLabel = findViewById(R.id.scoreLabel);
         readyLabel = findViewById(R.id.readyLabel);
+        cor1 = findViewById(R.id.cor1);
         cor2  = findViewById(R.id.cor2);
         cor3  = findViewById(R.id.cor3);
         cor4 = findViewById(R.id.cor4);
@@ -226,7 +234,8 @@ public class GameActivity extends AppCompatActivity {
 
                 if(vida < 5) vida++;
 
-                if(vida == 2)cor2.setVisibility(View.VISIBLE);
+                if (vida == 1) cor1.setVisibility(View.VISIBLE);
+                else if(vida == 2)cor2.setVisibility(View.VISIBLE);
                 else if(vida == 3)cor3.setVisibility(View.VISIBLE);
                 else if(vida == 4)cor4.setVisibility(View.VISIBLE);
                 else if(vida == 5)cor5.setVisibility(View.VISIBLE);
@@ -250,7 +259,8 @@ public class GameActivity extends AppCompatActivity {
 
         if (hitCheck(blackCenterX, blackCenterY)) {
             blackY = frameHeight + 100;
-            if(vida == 2)cor2.setVisibility(View.INVISIBLE);
+            if (vida == 1)cor1.setVisibility(View.INVISIBLE);
+            else if(vida == 2)cor2.setVisibility(View.INVISIBLE);
             else if(vida == 3)cor3.setVisibility(View.INVISIBLE);
             else if(vida == 4)cor4.setVisibility(View.INVISIBLE);
             else if(vida == 5)cor5.setVisibility(View.INVISIBLE);
@@ -331,8 +341,43 @@ public class GameActivity extends AppCompatActivity {
         orange.setVisibility(View.INVISIBLE);
         pink.setVisibility(View.INVISIBLE);*/
 
-        finish();
-        startActivity(new Intent(getApplicationContext(), ResultsActivity.class));
+        final Match[] match = new Match[1];
+        final String scoreText = Integer.toString(score);
+        Log.d("TAG", "gameOver: "+scoreText + " "+ person);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!action3) {
+                    action3 = true;
+                    Log.d("TAG", "action3: ");
+                    String score1 = dataSnapshot.getValue(Match.class).getScore1();
+                    String score2 = dataSnapshot.getValue(Match.class).getScore2();
+                    Log.d("TAG", "action3: "+ score1+" "+score2+" "+scoreText+" "+person);
+                    if (person == 1) {
+                        if (score2.equals("-5")) score2 = "Waiting...";
+                        match[0] = new Match(scoreText, score2, "false");
+                    } else {
+                        if (score1.equals("-5")) score1 = "Waiting...";
+                        match[0] = new Match(score1, scoreText, "false");
+                    }
+                    databaseReference.setValue(match[0]);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
+        Log.d("TAG", "gameOver: "+person);
+        String playerString = Integer.toString(person);
+        intent.putExtra("player", playerString);
+
+        //finish();
+        startActivity(intent);
 
 
     }
@@ -413,8 +458,10 @@ public class GameActivity extends AppCompatActivity {
         black.setVisibility(View.VISIBLE);
         orange.setVisibility(View.VISIBLE);
         pink.setVisibility(View.VISIBLE);
+        cor1.setVisibility(View.VISIBLE);
         cor2.setVisibility(View.VISIBLE);
         cor3.setVisibility(View.VISIBLE);
+        scoreLabel.setVisibility(View.VISIBLE);
 
         timeCount = 0;
         score = 0;
@@ -448,9 +495,7 @@ public class GameActivity extends AppCompatActivity {
     }*/
 
     public void returnHome(View view) {
+        finish();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
-
-
-
 }
