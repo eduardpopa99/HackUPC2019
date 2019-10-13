@@ -22,12 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -42,6 +36,7 @@ public class GameActivity extends AppCompatActivity {
 
     // Image
     private ImageView box, black, orange, pink, cor1,  cor2, cor3 , cor4 , cor5;
+
     private Drawable imageBoxRight, imageBoxLeft;
 
     private View baseView;
@@ -113,6 +108,7 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,12 +123,12 @@ public class GameActivity extends AppCompatActivity {
         baseView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                setupView();
-                //startGame(gameFrame);
+
+               setupView();
+               startGame(gameFrame);
             }
         });
     }
-
 
     private void configFireBase(){
         databaseReference = FirebaseDatabase.getInstance().getReference("match");
@@ -166,6 +162,7 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+
     private void setupView() {
         gameFrame = findViewById(R.id.gameFrame);
         startLayout = findViewById(R.id.startLayout);
@@ -173,6 +170,11 @@ public class GameActivity extends AppCompatActivity {
         black = findViewById(R.id.black);
         orange = findViewById(R.id.orange);
         pink = findViewById(R.id.pink);
+        cor1 = findViewById(R.id.cor1);
+        cor2 = findViewById(R.id.cor2);
+        cor3 = findViewById(R.id.cor3);
+        cor4 = findViewById(R.id.cor4);
+        cor5 = findViewById(R.id.cor5);
         scoreLabel = findViewById(R.id.scoreLabel);
         readyLabel = findViewById(R.id.readyLabel);
         cor1 = findViewById(R.id.cor1);
@@ -239,9 +241,6 @@ public class GameActivity extends AppCompatActivity {
                 else if(vida == 3)cor3.setVisibility(View.VISIBLE);
                 else if(vida == 4)cor4.setVisibility(View.VISIBLE);
                 else if(vida == 5)cor5.setVisibility(View.VISIBLE);
-
-
-
             }
 
             if (pinkY > frameHeight){
@@ -309,9 +308,7 @@ public class GameActivity extends AppCompatActivity {
 
         String scoreText = getString(R.string.score) + score;
 
-
         scoreLabel.setText(scoreText);
-
 
     }
 
@@ -378,8 +375,6 @@ public class GameActivity extends AppCompatActivity {
 
         //finish();
         startActivity(intent);
-
-
     }
 
     //////////
@@ -402,8 +397,12 @@ public class GameActivity extends AppCompatActivity {
 
     public void startGame(View view) {
         int w = gameFrame.getWidth();
+        Log.d("TAG", "onCreate: " + w);
         start_flg = true;
         startLayout.setVisibility(View.INVISIBLE);
+        cor1.setVisibility(View.VISIBLE);
+        cor2.setVisibility(View.VISIBLE);
+        cor3.setVisibility(View.VISIBLE);
 
         if (frameHeight == 0) {
             frameHeight = gameFrame.getHeight();
@@ -486,13 +485,13 @@ public class GameActivity extends AppCompatActivity {
         }, 0, 20);
     }
 
-/*    public void quitGame(View view) {
+    public void quitGame(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             finishAndRemoveTask();
         } else {
             finish();
         }
-    }*/
+    }
 
     public void returnHome(View view) {
         finish();

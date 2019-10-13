@@ -20,6 +20,7 @@
         android:fontFamily="@font/rubrik"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:visibility="invisible"
 
     />
 
