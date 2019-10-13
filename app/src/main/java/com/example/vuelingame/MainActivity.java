@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonInfo.setOnClickListener(this);
 
         info = findViewById(R.id.info);
+        logo = findViewById(R.id.logo);
+
 
     }
 
@@ -52,10 +54,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (info.getVisibility()==View.VISIBLE) {
                 info.setVisibility(View.INVISIBLE);
                 buttonStart.setVisibility(View.VISIBLE);
+                logo.setVisibility(View.VISIBLE);
             }
             else if (info.getVisibility()==View.INVISIBLE){
                 info.setVisibility(View.VISIBLE);
-                buttonStart.setVisibility(View.INVISIBLE);
+                buttonStart.setVisibility(View.INVISIBLE);  
+                logo.setVisibility(View.INVISIBLE);              
             }
 
         }
