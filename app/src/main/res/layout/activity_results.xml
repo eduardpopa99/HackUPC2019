@@ -28,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:fontFamily="@font/rubrik"
                 android:gravity="center"
                 android:text="Player1"
                 android:textSize="24dp" />
@@ -37,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:fontFamily="@font/rubrik"
                 android:gravity="center"
                 android:text="Score1"
                 android:textSize="24dp" />
@@ -56,6 +58,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:fontFamily="@font/rubrik"
                 android:text="Player2"
                 android:textSize="24dp" />
 
@@ -65,6 +68,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:fontFamily="@font/rubrik"
                 android:text="Score2"
                 android:textSize="24dp" />
         </LinearLayout>
@@ -72,26 +76,36 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/home"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:text="HOME"
+        android:fontFamily="@font/rubrik"
+        android:textColor="@color/yellow"
+        android:textSize="30sp"
+        android:background="@drawable/return_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.726" />
+        app:layout_constraintVertical_bias="0.815" />
 
     <Button
+        android:id="@+id/newGame"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:text="NEW GAME"
+        android:textColor="@color/grey"
+        android:fontFamily="@font/rubrik"
+        android:textSize="30sp"
+        android:background="@drawable/start_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.836" />
+        app:layout_constraintVertical_bias="0.667" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
