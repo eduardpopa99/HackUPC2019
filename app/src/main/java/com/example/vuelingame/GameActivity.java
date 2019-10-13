@@ -22,6 +22,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -64,24 +70,94 @@ public class GameActivity extends AppCompatActivity {
     //private boolean action_flg = false;
     private boolean pink_flg = false;
 
+    private DatabaseReference databaseReference;
+    private Boolean action = false;
+    private Boolean action2 = false;
+
+    private void startMatch(){
+        action = true;
+        Match match = new Match("-5", "-5", "false");
+        databaseReference.setValue(match);
+        startGame(gameFrame);
+    }
+
+    private void waitOpponent(){
+        action = true;
+        Match match = new Match("-5", "-5", "true");
+        databaseReference.setValue(match);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Match match1 =
+                if(!action2) {
+                    String openMatch = dataSnapshot.getValue(Match.class).getIsOpen();
+                    //Log.d("TAG", "onDataChange: " + match1.getIsOpen());
+                    if (openMatch.equals("true")) {
+                        Log.d("TAG", "onCreate2: obert");
+                    } else {
+                        action = true;
+                        Log.d("TAG", "onCreate2: tancat");
+                        startMatch();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        configFireBase();
+
+        //Log.d("TAG", "onCreate: " + databaseReference.toString());
+
         baseView = findViewById(R.id.base);
         baseView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-
-               setupView();
-               startGame(gameFrame);
+                setupView();
+                //startGame(gameFrame);
             }
         });
     }
 
 
+    private void configFireBase(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("match");
+
+        if(!action) {
+
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    //Match match1 =
+                    if(!action) {
+                        String openMatch = dataSnapshot.getValue(Match.class).getIsOpen();
+                        //Log.d("TAG", "onDataChange: " + match1.getIsOpen());
+                        if (openMatch.equals("true")) {
+                            Log.d("TAG", "onCreate1: obert");
+                            startMatch();
+                        } else {
+                            Log.d("TAG", "onCreate1: tancat");
+                            waitOpponent();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
 
     private void setupView() {
         gameFrame = findViewById(R.id.gameFrame);
@@ -263,7 +339,6 @@ public class GameActivity extends AppCompatActivity {
 
     public void startGame(View view) {
         int w = gameFrame.getWidth();
-        Log.d("TAG", "onCreate: " + w);
         start_flg = true;
         startLayout.setVisibility(View.INVISIBLE);
 
